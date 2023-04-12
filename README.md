@@ -1,1 +1,1 @@
-# news_subjectivity
+# News Subjectivity
