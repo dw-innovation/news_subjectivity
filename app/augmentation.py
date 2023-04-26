@@ -43,6 +43,8 @@ def augment_data(dataset_path,
     num_augmented_samples = num_obj_samples - num_subj_samples
     logger.info(f'{num_augmented_samples} samples in {dataset_path} to augment')
 
+    random.seed(0)
+
     if style == 'normal':
         '''If no style is used, we augment from the subjective samples which are the minority'''
         indices = random.sample(range(0, num_subj_samples - 1), num_augmented_samples)
