@@ -1,0 +1,3 @@
+Cümleyi {style} şekilde yeniden yaz:
+Cümle: {sentence}
+Yanıt:

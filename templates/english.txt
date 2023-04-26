@@ -1,0 +1,3 @@
+Rewrite this text into a {style} text:
+Text: {sentence}
+Answer:
