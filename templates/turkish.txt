@@ -1,3 +1,3 @@
-Cümleyi {style} şekilde yeniden yaz:
+Bu cümleyi {style} bir dille yeniden yaz:
 Cümle: {sentence}
 Yanıt:
