@@ -3,6 +3,8 @@ This repository contains our approach for the shared task: CLEF 2023 Task 2 subj
 
 You can find more details about the task and the dataset at the [link](https://gitlab.com/checkthat_lab/clef2023-checkthat-lab).
 
+You can check the sample distibution via `python -m app.analysis.stats`
+
 ## Installation
 We use docker to build the environment and the libraries.
 
