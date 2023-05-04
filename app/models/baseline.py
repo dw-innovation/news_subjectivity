@@ -17,7 +17,7 @@ class Baseline:
         self.class_weight = class_weight
         self.encoder = SentenceTransformer(self.pretrained_model)
 
-    def train(self, dataset_path, model_path, augment_dataset_path:None):
+    def train(self, dataset_path, model_path, augment_dataset_path:None, training_args:None):
         train_data = pd.read_csv(dataset_path, sep='\t')
 
         if augment_dataset_path:
@@ -28,7 +28,7 @@ class Baseline:
             train_data = train_data[['sentence', 'label']]
             train_data = pd.concat([train_data, augmented_data])
             logger.info(f'Number of the documents: {len(train_data)}')
-            train_data.drop_duplicates(keep='first', inplace=True)
+            train_data.drop_duplicates(subset=['sentence'], keep='first', inplace=True)
             logger.info(f'Number of the documents: {len(train_data)}')
 
         model = LogisticRegression(class_weight="balanced") if self.class_weight else LogisticRegression()
