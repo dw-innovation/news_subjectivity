@@ -1,12 +1,12 @@
 MODEL=xlm-roberta
 BATCH_SIZE=8
 NUM_TRAIN_EPOCHS=3
-LANGUAGE=english
+LANGUAGE=german
 TRAIN_DATASET_PATH=dataset/clef2023/${LANGUAGE}/train.tsv
 DEV_DATASET_PATH=dataset/clef2023/${LANGUAGE}/dev.tsv
-TEST_DATASET_PATH=dataset/clef2023/${LANGUAGE}/test_en_gold.tsv
+TEST_DATASET_PATH=dataset/clef2023/${LANGUAGE}/test.tsv
 
-for PRETRAINED_MODEL in "xlm-roberta-base" "roberta-base"; do
+for PRETRAINED_MODEL in "xlm-roberta-base" "bert-base-german-cased"; do
     echo Experiment
     echo $MODEL
     echo $PRETRAINED_MODEL
@@ -52,8 +52,10 @@ for PRETRAINED_MODEL in "xlm-roberta-base" "roberta-base"; do
     --pred-file-path $RESULT_OUTPUT/test.tsv
 
     for AUGMENT_TYPE in oversampling undersampling ; do
-        for AUGMENT in normal emotional propaganda subjective derogatory exaggerated partisan prejudiced all; do
-#           for AUGMENT in all; do
+        for AUGMENT in normale emotionale abwertende Propaganda subjektive parteiische übertriebene voreingenommene all; do
+#        # for AUGMENT in abwertende ; do
+#        for AUGMENT in all ; do
+        #   for AUGMENT in Propaganda ; do
               echo $AUGMENT
               echo $AUGMENT_TYPE
               echo Testing ${LANGUAGE} , augmentation: ${AUGMENT}
@@ -87,19 +89,16 @@ for PRETRAINED_MODEL in "xlm-roberta-base" "roberta-base"; do
               --cuda_device 1 \
               --augment_type $AUGMENT_TYPE
   
-              echo Evaluation
-              python -m app.models.evaluate \
-              --gold-file-path $DEV_DATASET_PATH \
-              --pred-file-path $RESULT_OUTPUT/dev.tsv
+            echo Evaluation
+            python -m app.models.evaluate \
+            --gold-file-path $DEV_DATASET_PATH \
+            --pred-file-path $RESULT_OUTPUT/dev.tsv
 
-              echo Evaluation
-               python -m app.models.evaluate \
-               --gold-file-path $TEST_DATASET_PATH \
-               --pred-file-path $RESULT_OUTPUT/test.tsv
-
+            echo Evaluation
+             python -m app.models.evaluate \
+             --gold-file-path $TEST_DATASET_PATH \
+             --pred-file-path $RESULT_OUTPUT/test.tsv
 
         done
-
     done
-
 done

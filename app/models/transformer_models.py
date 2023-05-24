@@ -151,7 +151,6 @@ class XLMR:
             save_total_limit=2,
             load_best_model_at_end=True,
             metric_for_best_model='eval_f1-score',
-            logging_steps=1,
             seed=0,
             weight_decay=0.01
         )
@@ -173,41 +172,6 @@ class XLMR:
         del trainer
         torch.cuda.empty_cache()
 
-    def test(self, dataset_path, model_path, result_output):
-        set_random_seed(0)
-        test_data = pd.read_csv(dataset_path, sep='\t')
-
-        config = AutoConfig.from_pretrained(
-            self.pretrained_model,
-            num_labels=2,
-            label2id={"OBJ": 0, "SUBJ": 1},
-            id2label={0: "OBJ", 1: "SUBJ"}
-        )
-
-        model = AutoModelForSequenceClassification.from_pretrained(
-            model_path,
-            config=config,
-        )
-        tokenizer = AutoTokenizer.from_pretrained(self.pretrained_model)
-        pipe = TextClassificationPipeline(model=model, tokenizer=tokenizer, return_all_scores=True)
-
-        predictions = []
-        for idx, row in test_data.iterrows():
-            score = pipe(row["sentence"])[0][0]["score"]
-            pred = "OBJ" if score >= 0.5 else "SUBJ"
-            predictions.append(pred)
-
-        pred_df = pd.DataFrame()
-        pred_df['sentence_id'] = test_data['sentence_id']
-        pred_df['label'] = predictions
-
-        pred_df.to_csv(result_output, index=False, sep='\t')
-        trainer.save_model(model_path)  # Saves the tokenizer too for easy upload
-
-        # remove the model
-        del model
-        del trainer
-        torch.cuda.empty_cache()
 
     def test(self, dataset_path, model_path, result_output):
         set_random_seed(0)
