@@ -6,3 +6,4 @@ loguru==0.7.0
 openai==0.27.4
 tensorflow==2.12.0
 sentence_transformers==2.2.2
+diskcache==5.4.0

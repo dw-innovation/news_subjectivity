@@ -92,7 +92,9 @@ if __name__ == '__main__':
 
         scores = evaluate(whole_data)
 
-        logger.info('Macro F1 & Macro P & Macro R & SUBJ F1 & SUBJ P & SUBJ R & Accuracy')
+        # logger.info('Macro F1 & Macro P & Macro R & SUBJ F1 & SUBJ P & SUBJ R & Accuracy')
+
+        logger.info('Macro F1 Macro P Macro R SUBJ F1 SUBJ P SUBJ R Accuracy')
 
         scores_macro_f1 = "{:.2f}".format(scores['macro_F1'])
         scores_macro_p = "{:.2f}".format(scores['macro_P'])
@@ -102,4 +104,6 @@ if __name__ == '__main__':
         scores_subj_r = "{:.2f}".format(scores['SUBJ_R'])
         scores_accuracy = "{:.2f}".format(scores['accuracy'])
 
-        logger.info(f'{scores_macro_f1} & {scores_macro_p} & {scores_subj_r} & {scores_subj_p} & {scores_subj_r} & {scores_accuracy}')
+        # logger.info(f'{scores_macro_f1} & {scores_macro_p} & {scores_subj_r} & {scores_subj_p} & {scores_subj_r} & {scores_accuracy}')
+        logger.info(
+            f'{scores_macro_f1} {scores_macro_p} {scores_subj_r} {scores_subj_p} {scores_subj_r} {scores_accuracy}')

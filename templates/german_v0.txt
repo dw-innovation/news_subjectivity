@@ -1,0 +1,3 @@
+Formuliere diesen Satz in {style} Sprache um:
+Text: {sentence}
+Antwort:
