@@ -91,8 +91,6 @@ class XLMR:
                 num_obj_samples = len(train_data[train_data["label"] == 'OBJ'])
 
                 num_augmented_samples = (num_obj_samples - num_subj_samples) // 2
-                
-
 
                 if "normal" in augment_dataset_path:
                     # drop samples labeled as obj

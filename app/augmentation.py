@@ -15,7 +15,7 @@ def augment_data(dataset_path,
                  model,
                  style,
                  language,
-                 device,
+                 model_name,
                  output_dir):
     with open(Path('templates') / f'{language}.txt') as f:
         template = f.read()
@@ -29,9 +29,10 @@ def augment_data(dataset_path,
         os.environ["OPENAI_API_KEY"] = os.environ.get("OPENAI_API_KEY")
         logger.info(os.environ.get("OPENAI_API_KEY"))
 
-        llm = OpenAI(model_name='text-davinci-003',
+        llm = OpenAI(model_name=model_name,
                      openai_api_key=os.environ.get("OPENAI_API_KEY"),
-                     temperature=0.9  # we chose 0.9 as temperature for creative answers
+                     temperature=0.9,  # we chose 0.9 as temperature for creative answers
+                     request_timeout=250
                      )
 
     llm_chain = LLMChain(llm=llm, prompt=prompt, output_key='final_output')
@@ -70,16 +71,16 @@ if __name__ == '__main__':
     parser = ArgumentParser()
     parser.add_argument('--dataset')
     parser.add_argument('--model')
+    parser.add_argument('--model_name', choices=['text-davinci-003', 'gpt-3.5-turbo'])
     parser.add_argument('--style')
     parser.add_argument('--output_dir')
     parser.add_argument('--language')
-    parser.add_argument('--device', type=int)
 
     args = parser.parse_args()
 
     augment_data(dataset_path=args.dataset,
                  model=args.model,
                  style=args.style,
+                 model_name=args.model_name,
                  language=args.language,
-                 device=args.device,
                  output_dir=args.output_dir)
