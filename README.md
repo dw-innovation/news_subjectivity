@@ -1,4 +1,4 @@
-# Multilingual News Subjectivity
+# DWReCo at CLEF-2023 News Subjectivity
 This repository contains our approach for the shared task: CLEF 2023 Task 2 subjectivity detection. We evaluate our method on the datasets in English and Turkish.
 
 You can find more details about the task and the dataset at the [link](https://gitlab.com/checkthat_lab/clef2023-checkthat-lab).
@@ -28,3 +28,15 @@ docker run --rm --gpus 0 -v /reco/news_subjectivity:/app --name app news_subject
 To change the paraphrase style, you need to change --style in `scripts/augment.sh`.
 
 **normal**: it paraphrases the text without any style. It is a baseline augmentation method. When this style is on, it only paraphrases the minority class which is subjective in the datasets.
+
+## Reference
+
+If you find this work useful, please cite the following information:
+
+```bibtex
+@InProceedings{clef-checkthat:2023:task2:dwreco, 
+	author = "Schlicht, Ipek Baris and Khellaf, Lynn and Altiok, Defne", 
+	title = "DWReCO at {CheckThat}! 2023: Enhancing Subjectivity Detection through Style-based Data Sampling", 
+	crossref = "clef2023-workingnotes"
+}
+```
